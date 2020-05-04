@@ -13,6 +13,8 @@ module "bridgecrew-azure" {
 The module does not have any variables.
 
 ### Outputs
+This module outputs the JSON object that is required to integrate with [Bridgecrew Cloud](https://bridgecrew.cloud).
+This object consists of these fields:
 
 |name|description|example|
 |----|-----------|-------|
