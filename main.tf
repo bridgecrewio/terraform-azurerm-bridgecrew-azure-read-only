@@ -1,12 +1,3 @@
-provider "azuread" {
-  subscription_id = var.subscription_id
-}
-
-provider "azurerm" {
-  subscription_id = var.subscription_id
-  features {}
-}
-
 resource random_string "password" {
   min_special = 2
   length      = 16

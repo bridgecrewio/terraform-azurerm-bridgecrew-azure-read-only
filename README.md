@@ -5,13 +5,12 @@ This module allows you to connect your Azure subscription to [Bridgecrew Cloud](
 ```hcl-terraform
 module "bridgecrew-azure" {
   source          = "bridgecrewio/read-only/azure"
-  subscription_id = "your-subscription-id"
 }
 ```
 
 ## Variables and Outputs
 ### Variables
-The module gets a single variable as input, which is required - `subscription_id`.
+The module does not have any variables.
 
 ### Outputs
 
@@ -21,3 +20,20 @@ The module gets a single variable as input, which is required - `subscription_id
 |tenant_id | The ID of the tenant as described by Azure | 1f668476-63d2-4f30-8fa1-976303c32b40|
 |client_id|The ID of the Service Principal's Application ID | d02f970f-e10e-4249-9960-0d959b246579|
 |client_secret|The secret that was generated for this Service Principal||
+
+## Example
+
+```hcl-terraform
+provider "azurerm" {
+  subscription_id = "your-subscription-id"
+  features {}
+}
+
+module "bridgecrew-read" {
+  source = "../"
+}
+
+output "bridgecrew_output" {
+  value = module.bridgecrew-read.bridgecrew_output
+}
+```
