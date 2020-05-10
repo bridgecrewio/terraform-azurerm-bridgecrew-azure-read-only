@@ -1,8 +1,8 @@
 output "bridgecrew_output" {
   value = jsonencode({
-    "subscription_id" = data.azurerm_subscription.subscription.subscription_id
-    "tenant_id"       = data.azurerm_subscription.subscription.tenant_id
-    "client_id"       = azuread_service_principal.bridgecrew_sp.application_id
-    "client_secret"   = random_string.password.result
+    "subscriptionId" = data.azurerm_subscription.subscription.subscription_id
+    "tenantId"       = data.azurerm_subscription.subscription.tenant_id
+    "clientId"       = azuread_application.bridgecrew_app.application_id
+    "clientSecret"   = azuread_service_principal_password.password.value
   })
 }

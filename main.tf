@@ -1,21 +1,48 @@
 resource random_string "password" {
-  min_special = 2
-  length      = 16
-  min_lower   = 1
-  min_numeric = 1
-  min_upper   = 1
+  min_special      = 2
+  length           = 16
+  min_lower        = 1
+  min_numeric      = 1
+  min_upper        = 1
+  override_special = "!#$@?^*%"
+}
+
+data "azurerm_subscription" "subscription" {}
+
+data "azuread_service_principal" "graph" {
+  display_name = "Microsoft Graph"
+}
+
+locals {
+  permissions_id_map = {
+    application_id     = data.azuread_service_principal.graph.application_id
+    display_name       = data.azuread_service_principal.graph.display_name
+    app_roles          = { for p in data.azuread_service_principal.graph.app_roles : p.value => p.id }
+    oauth2_permissions = { for p in data.azuread_service_principal.graph.oauth2_permissions : p.value => p.id }
+  }
+  roles_to_assign = [
+    "Reader",
+    "Security Reader"
+  ]
 }
 
 resource "azuread_application" "bridgecrew_app" {
   name                       = "bridgecrew-security"
-  homepage                   = "http://bridgecrew.io"
+  homepage                   = "https://bridgecrew.io"
   available_to_other_tenants = false
   oauth2_allow_implicit_flow = true
+
+  required_resource_access {
+    resource_app_id = data.azuread_service_principal.graph.application_id
+    resource_access {
+      id   = local.permissions_id_map.oauth2_permissions["Directory.Read.All"]
+      type = "Scope"
+    }
+  }
 }
 
-resource "azuread_service_principal" "bridgecrew_sp" {
-  application_id               = azuread_application.bridgecrew_app.application_id
-  app_role_assignment_required = false
+resource azuread_service_principal "bridgecrew_sp" {
+  application_id = azuread_application.bridgecrew_app.application_id
 }
 
 resource "azuread_service_principal_password" "password" {
@@ -24,10 +51,9 @@ resource "azuread_service_principal_password" "password" {
   end_date             = "2099-01-01T01:02:03Z"
 }
 
-data "azurerm_subscription" "subscription" {}
-
-resource "azurerm_role_assignment" "example" {
+resource "azurerm_role_assignment" "role_assignments" {
+  count                = length(local.roles_to_assign)
   scope                = data.azurerm_subscription.subscription.id
-  role_definition_name = "Security Reader"
+  role_definition_name = local.roles_to_assign[count.index]
   principal_id         = azuread_service_principal.bridgecrew_sp.object_id
 }
