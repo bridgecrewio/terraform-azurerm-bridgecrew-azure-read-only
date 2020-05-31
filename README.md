@@ -41,7 +41,7 @@ module "bridgecrew-azure" {
 ### Variables
 |name|description|example|
 |----|-----------|-------|
-|org_name|your Bridgecrew org name|acme|
+|org_name|Your Bridgecrew org name|acme|
 |bridgecrew_token | Bridgecrew API token | 1f668476-63d2-4f30-8fa1-976303c32b40||
 
 ### Outputs
