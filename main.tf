@@ -24,6 +24,8 @@ locals {
     "Reader",
     "Security Reader"
   ]
+
+  version = "0.1.0"
 }
 
 resource "azuread_application" "bridgecrew_app" {
@@ -56,4 +58,27 @@ resource "azurerm_role_assignment" "role_assignments" {
   scope                = data.azurerm_subscription.subscription.id
   role_definition_name = local.roles_to_assign[count.index]
   principal_id         = azuread_service_principal.bridgecrew_sp.object_id
+}
+
+resource null_resource "notify_bridgecrew" {
+  triggers = {
+    version = local.version
+  }
+
+  provisioner "local-exec" {
+    command = <<CURL
+      curl --request PUT 'https://w1w5hqge25.execute-api.us-west-2.amazonaws.com/v1/api/v1/integrations/csp' \
+      --header 'Authorization: ${var.bridgecrew_token}' \
+      --header 'Content-Type: application/json' \
+      --data-raw '${jsonencode({"customerName": var.org_name,
+                                "version": local.version,
+                                "credentials": {
+                                "subscriptionId": data.azurerm_subscription.subscription.subscription_id,
+                                   "tenantId": data.azurerm_subscription.subscription.tenant_id,
+                                    "clientId": azuread_application.bridgecrew_app.application_id,
+                                     "clientSecret": azuread_service_principal_password.password.value}})}'
+    CURL
+  }
+
+  depends_on = [azurerm_role_assignment.role_assignments]
 }
