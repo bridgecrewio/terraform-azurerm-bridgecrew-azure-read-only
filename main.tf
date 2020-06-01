@@ -67,7 +67,7 @@ resource null_resource "notify_bridgecrew" {
 
   provisioner "local-exec" {
     command = <<CURL
-      curl --request PUT 'https://www.bridgecrew.cloud/api/v1/integrations/csp' \
+      curl --request PUT '${var.base_url}/api/v1/integrations/csp' \
       --header 'Authorization: ${var.bridgecrew_token}' \
       --header 'Content-Type: application/json' \
       --data-raw '${jsonencode({"customerName": var.org_name,
