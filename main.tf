@@ -20,10 +20,7 @@ locals {
     app_roles          = { for p in data.azuread_service_principal.graph.app_roles : p.value => p.id }
     oauth2_permissions = { for p in data.azuread_service_principal.graph.oauth2_permissions : p.value => p.id }
   }
-  roles_to_assign = [
-    "Reader",
-    "Security Reader"
-  ]
+  roles_to_assign = ["Reader"]
 
   version = "0.2.0"
 }
@@ -67,7 +64,7 @@ resource null_resource "notify_bridgecrew" {
 
   provisioner "local-exec" {
     command = <<CURL
-      curl --request PUT '${var.base_url}/api/v1/integrations/csp' \
+      curl --request PUT 'https://www.bridgecrew.cloud/api/v1/integrations/csp' \
       --header 'Authorization: ${var.bridgecrew_token}' \
       --header 'Content-Type: application/json' \
       --data-raw '${jsonencode({"customerName": var.org_name,

@@ -3,12 +3,10 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/bridgecrewio/terraform-azurerm-read-only.svg?label=latest)](https://github.com/bridgecrewio/terraform-azurerm-bridgecrew-read-only/releases/latest)
 ![Terraform Version](https://img.shields.io/badge/tf-%3E%3D0.12.0-blue.svg)
 
-Implementing this module allows visibility to your project on [Bridgecrew Cloud](https://www.bridgecrew.cloud).
+Implementing this module allows visibility to your azure subscription on [Bridgecrew Cloud](https://www.bridgecrew.cloud).
 
 ## Module contents
-This module enables the APIs that allow us to have visibility into your Azure subscription
-and creates a service account for us to scan that project for misconfigurations.
-The service account requires the "Viewer" role in order to function properly.
+This module creates a an application registration in your subscription with a service principal for Bridgecrew to use. The service principal requires the "Reader" role to function correctly.
 
 ## Configuration
 
@@ -53,5 +51,4 @@ This object consists of these fields:
 |----|-----------|-------|
 |subscription_id|The Subscription ID this module was deployed to|62f5e458-9e12-40c9-a1b4-23badcdd19ca|
 |tenant_id | The ID of the tenant as described by Azure | 1f668476-63d2-4f30-8fa1-976303c32b40|
-|client_id|The ID of the Service Principal's Application ID | d02f970f-e10e-4249-9960-0d959b246579|
-|client_secret|The secret that was generated for this Service Principal||
+|client_id|The ID of the Service Principal's Application ID | d02f970f-e10e-4249-9960-0d959b246579||
