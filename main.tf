@@ -6,7 +6,9 @@ resource random_string "password" {
   special = false
 }
 
-data "azurerm_subscription" "subscription" {}
+data "azurerm_subscription" "subscription" {
+  subscription_id = var.subscription_id
+}
 
 data "azuread_service_principal" "graph" {
   display_name = "Microsoft Graph"

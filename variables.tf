@@ -8,3 +8,8 @@ variable "bridgecrew_token" {
   description = "Your authentication token as can be found in https://www.bridgecrew.cloud/integrations/azure-api-access"
 }
 
+variable "subscription_id" {
+  type        = string
+  description = "The subscription to connect. If left unspecified, the default subscription will be taken"
+  default     = null
+}
