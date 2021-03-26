@@ -30,8 +30,8 @@ To run this module, supply the name of the company as registered in [Bridgecrew 
 ```hcl-terraform
 module "bridgecrew-read" {
   source           = "bridgecrewio/bridgecrew-azure-read-only/azure"
-  org_name         = "acme"
-  bridgecrew_token = "YOUR_TOKEN"
+  org_name         = "<YOUR_ORG>"
+  bridgecrew_token = "<YOUR_TOKEN>"
 }
 ```
 
@@ -54,39 +54,39 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| azuread | n/a |
-| azurerm | n/a |
-| null | n/a |
-| random | n/a |
+| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | n/a |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 
 ## Modules
 
-No Modules.
+No modules.
 
 ## Resources
 
-| Name |
-|------|
-| [azuread_application](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application) |
-| [azuread_service_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal) |
-| [azuread_service_principal](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) |
-| [azuread_service_principal_password](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_password) |
-| [azurerm_role_assignment](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) |
-| [azurerm_subscription](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) |
-| [null_resource](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) |
-| [random_string](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) |
+| Name | Type |
+|------|------|
+| [azuread_application.bridgecrew_app](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application) | resource |
+| [azuread_service_principal.bridgecrew_sp](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | resource |
+| [azuread_service_principal_password.password](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_password) | resource |
+| [azurerm_role_assignment.role_assignments](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
+| [null_resource.notify_bridgecrew](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [random_string.password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
+| [azuread_service_principal.graph](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal) | data source |
+| [azurerm_subscription.subscription](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| bridgecrew\_token | Your authentication token as can be found in https://www.bridgecrew.cloud/integrations/azure-api-access | `string` | n/a | yes |
-| org\_name | The name of the org as registered in Bridgecrew console | `string` | n/a | yes |
-| subscription\_id | The subscription to connect. If left unspecified, the default subscription will be taken | `string` | `null` | no |
+| <a name="input_bridgecrew_token"></a> [bridgecrew\_token](#input\_bridgecrew\_token) | Your authentication token as can be found in https://www.bridgecrew.cloud/integrations/azure-api-access | `string` | n/a | yes |
+| <a name="input_org_name"></a> [org\_name](#input\_org\_name) | The name of the org as registered in Bridgecrew console | `string` | n/a | yes |
+| <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id) | The subscription to connect. If left unspecified, the default subscription will be taken | `string` | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| bridgecrew\_output | n/a |
+| <a name="output_bridgecrew_output"></a> [bridgecrew\_output](#output\_bridgecrew\_output) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
