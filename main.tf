@@ -1,9 +1,9 @@
-resource random_string "password" {
-  length           = 24
-  min_lower        = 1
-  min_numeric      = 1
-  min_upper        = 1
-  special = false
+resource "random_string" "password" {
+  length      = 24
+  min_lower   = 1
+  min_numeric = 1
+  min_upper   = 1
+  special     = false
 }
 
 data "azurerm_subscription" "subscription" {
@@ -26,26 +26,12 @@ locals {
   version = "0.2.1"
 }
 
-resource "azuread_application" "bridgecrew_app" {
-  name                       = "bridgecrew-security-${data.azurerm_subscription.subscription.subscription_id}"
-  homepage                   = "https://bridgecrew.io"
-  available_to_other_tenants = false
-  oauth2_allow_implicit_flow = true
 
-  required_resource_access {
-    resource_app_id = data.azuread_service_principal.graph.application_id
-    resource_access {
-      id   = local.permissions_id_map.oauth2_permissions["Directory.Read.All"]
-      type = "Scope"
-    }
-  }
-}
-
-resource azuread_service_principal "bridgecrew_sp" {
+resource "azuread_service_principal" "bridgecrew_sp" {
   application_id = azuread_application.bridgecrew_app.application_id
 }
 
-resource azuread_service_principal_password password {
+resource "azuread_service_principal_password" "password" {
   service_principal_id = azuread_service_principal.bridgecrew_sp.id
   value                = random_string.password.result
   end_date             = "2099-01-01T01:02:03Z"
@@ -56,29 +42,4 @@ resource "azurerm_role_assignment" "role_assignments" {
   scope                = data.azurerm_subscription.subscription.id
   role_definition_name = local.roles_to_assign[count.index]
   principal_id         = azuread_service_principal.bridgecrew_sp.object_id
-}
-
-resource null_resource "notify_bridgecrew" {
-  triggers = {
-    version = local.version
-    secret  = random_string.password.result
-  }
-
-  provisioner "local-exec" {
-    command = <<CURL
-      curl --request PUT 'https://www.bridgecrew.cloud/api/v1/integrations/csp' \
-      --header 'Authorization: ${var.bridgecrew_token}' \
-      --header 'Content-Type: application/json' \
-      --data-raw '${jsonencode({"customerName": var.org_name,
-                                "version": local.version,
-                                "credentials": {
-                                "subscriptionId":   data.azurerm_subscription.subscription.subscription_id,
-                                "subscriptionName": data.azurerm_subscription.subscription.display_name,
-                                "tenantId": data.azurerm_subscription.subscription.tenant_id,
-                                "clientId": azuread_application.bridgecrew_app.application_id,
-                                "clientSecret": random_string.password.result}})}'
-    CURL
-  }
-
-  depends_on = [azurerm_role_assignment.role_assignments]
 }
