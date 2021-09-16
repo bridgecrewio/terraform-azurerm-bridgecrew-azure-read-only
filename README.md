@@ -1,4 +1,5 @@
 # Bridgecrew AZURE ReadOnly Integration
+
 [![Maintained by Bridgecrew.io](https://img.shields.io/badge/maintained%20by-bridgecrew.io-blueviolet)](https://bridgecrew.io)
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/tag/bridgecrewio/terraform-azurerm-read-only.svg?label=latest)](https://github.com/bridgecrewio/terraform-azurerm-bridgecrew-read-only/releases/latest)
 [![Infrastructure Tests](https://www.bridgecrew.cloud/badges/github/bridgecrewio/terraform-azurerm-bridgecrew-azure-read-only/cis_azure)](https://www.bridgecrew.cloud/link/badge?vcs=github&fullRepo=bridgecrewio%2Fterraform-azurerm-bridgecrew-azure-read-only&benchmark=CIS+AZURE+V1.1)
@@ -7,49 +8,85 @@
 Implementing this module allows visibility to your azure subscription on [Bridgecrew Cloud](https://www.bridgecrew.cloud).
 
 ## Module contents
-This module creates a an application registration in your subscription with a service principal for Bridgecrew to use. The service principal requires the "Reader" role to function correctly.
+
+This module creates a an application registration in your subscription with a service principal for Bridgecrew to use.
+The service principal requires the "Reader" role to function correctly.
 
 ## Configuration
 
 ### Prerequisites
-This module requires the cURL library to be installed on your machine. To check if you have cURL installed, type the following command in your terminal:
+
+This module requires the cURL library to be installed on your machine.
+To check if you have cURL installed, type the following command in your terminal:
+
 ```shell script
 curl --help
 ```
 
 ### Installation
+
 To run this module, supply the name of the company as registered in [Bridgecrew Cloud](https://www.bridgecrew.cloud) as such:
+
 ```hcl-terraform
 module "bridgecrew-read" {
   source           = "bridgecrewio/bridgecrew-azure-read-only/azure"
-  org_name         = "acme"
-  bridgecrew_token = "YOUR_TOKEN"
+  org_name         = "<YOUR_ORG>"
+  bridgecrew_token = "<YOUR_TOKEN>"
 }
 ```
 
-# Azure ReadOnly Deployment Module
+## Azure ReadOnly Deployment Module
+
 This module allows you to connect your Azure subscription to [Bridgecrew Cloud](https://bridgecrew.cloud)
 
-## Configuration
+## Module
+
 ```hcl-terraform
 module "bridgecrew-azure" {
   source          = "bridgecrewio/read-only/azure"
 }
-```
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
 
-## Variables and Outputs
-### Variables
-|name|description|example|
-|----|-----------|-------|
-|org_name|Your Bridgecrew org name|acme|
-|bridgecrew_token | Bridgecrew API token | 1f668476-63d2-4f30-8fa1-976303c32b40||
+No requirements.
 
-### Outputs
-This module outputs the JSON object that is required to integrate with [Bridgecrew Cloud](https://bridgecrew.cloud).
-This object consists of these fields:
+## Providers
 
-|name|description|example|
-|----|-----------|-------|
-|subscription_id|The Subscription ID this module was deployed to|62f5e458-9e12-40c9-a1b4-23badcdd19ca|
-|tenant_id | The ID of the tenant as described by Azure | 1f668476-63d2-4f30-8fa1-976303c32b40|
-|client_id|The ID of the Service Principal's Application ID | d02f970f-e10e-4249-9960-0d959b246579||
+| Name | Version |
+|------|---------|
+| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | n/a |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azuread_application.bridgecrew_app](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/application) | resource |
+| [azuread_service_principal.bridgecrew_sp](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal) | resource |
+| [azuread_service_principal_password.password](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/resources/service_principal_password) | resource |
+| [azurerm_role_assignment.role_assignments](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/role_assignment) | resource |
+| [null_resource.notify_bridgecrew](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
+| [random_string.password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string) | resource |
+| [azuread_service_principal.graph](https://registry.terraform.io/providers/hashicorp/azuread/latest/docs/data-sources/service_principal) | data source |
+| [azurerm_subscription.subscription](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_bridgecrew_token"></a> [bridgecrew\_token](#input\_bridgecrew\_token) | Your authentication token as can be found in https://www.bridgecrew.cloud/integrations/azure-api-access | `string` | n/a | yes |
+| <a name="input_org_name"></a> [org\_name](#input\_org\_name) | The name of the org as registered in Bridgecrew console | `string` | n/a | yes |
+| <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id) | The subscription to connect. If left unspecified, the default subscription will be taken | `string` | `null` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_bridgecrew_output"></a> [bridgecrew\_output](#output\_bridgecrew\_output) | n/a |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
