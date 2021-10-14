@@ -60,8 +60,8 @@ module "bridgecrew-azure" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | 2.2.1 |
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 2.45.1 |
+| <a name="provider_azuread"></a> [azuread](#provider\_azuread) | 1.4.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 2.53.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.1.0 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.1.0 |
 
