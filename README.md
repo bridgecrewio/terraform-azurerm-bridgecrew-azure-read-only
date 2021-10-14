@@ -45,6 +45,8 @@ This module allows you to connect your Azure subscription to [Bridgecrew Cloud](
 module "bridgecrew-azure" {
   source          = "bridgecrewio/read-only/azure"
 }
+```
+
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
