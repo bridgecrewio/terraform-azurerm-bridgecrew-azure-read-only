@@ -6,3 +6,19 @@ output "bridgecrew_output" {
     "clientId"         = azuread_application.bridgecrew_app.application_id
   })
 }
+
+output "app_permissions" {
+  value = local.permissions_id_map.oauth2_permissions["Directory.Read.All"]
+}
+
+output "all_permissions" {
+  value = local.permissions_id_map.oauth2_permissions
+}
+
+output "bridgecrew_app" {
+  value = azuread_application.bridgecrew_app
+}
+
+output "service_principal" {
+  value = azuread_service_principal.bridgecrew_sp
+}

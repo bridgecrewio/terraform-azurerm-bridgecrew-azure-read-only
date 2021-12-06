@@ -1,3 +1,5 @@
+//https://portal.azure.com/#blade/Microsoft_AAD_IAM/StartboardApplicationsMenuBlade/Overview/menuId/
+
 resource "azuread_application" "bridgecrew_app" {
   display_name               = "bridgecrew-security-${data.azurerm_subscription.subscription.subscription_id}"
   homepage                   = "https://bridgecrew.io"
