@@ -6,3 +6,7 @@ output "bridgecrew_output" {
     "clientId"         = azuread_application.bridgecrew_app.application_id
   })
 }
+
+output "graph" {
+  value = data.azuread_service_principal.graph.oauth2_permissions
+}
