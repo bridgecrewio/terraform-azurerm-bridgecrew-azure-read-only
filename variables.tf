@@ -5,6 +5,7 @@ variable "org_name" {
 
 variable "bridgecrew_token" {
   type        = string
+  sensitive   = true
   description = "Your authentication token as can be found in https://www.bridgecrew.cloud/integrations/azure-api-access"
 }
 
