@@ -5,6 +5,7 @@ resource "azurerm_role_definition" "extra_read_permissions" {
   permissions {
     actions = [
       "Microsoft.Storage/storageAccounts/listKeys/action",
+      "Microsoft.ContainerRegistry/registries/listCredentials/action",
     ]
     not_actions = []
   }
