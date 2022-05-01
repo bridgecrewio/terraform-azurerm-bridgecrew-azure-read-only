@@ -6,7 +6,6 @@ resource "azurerm_role_assignment" "role_assignments" {
 }
 
 resource "azurerm_role_assignment" "extra_read_assignment" {
-  name               = "Bridgecrew"
   principal_id       = azuread_service_principal.bridgecrew_sp.object_id
   scope              = data.azurerm_subscription.subscription.id
   role_definition_id = azurerm_role_definition.extra_read_permissions.role_definition_resource_id
