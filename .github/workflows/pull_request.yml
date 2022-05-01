@@ -45,4 +45,6 @@ jobs:
           curl -Lo $GITHUB_WORKSPACE/bin/terraform-docs https://github.com/terraform-docs/terraform-docs/releases/download/v${{ env.terraform-docs }}/terraform-docs-v${{ env.terraform-docs }}-$(uname)-amd64
           chmod +x $GITHUB_WORKSPACE/bin/terraform-docs
           echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
-      - uses: pre-commit/action@v2.0.0
+      - uses: pre-commit/action@v2.0.3
+        with:
+          token: ${{ github.token }}
