@@ -35,8 +35,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          token: ${{ github.token }}
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
@@ -46,5 +44,3 @@ jobs:
           chmod +x $GITHUB_WORKSPACE/bin/terraform-docs
           echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
       - uses: pre-commit/action@v2.0.3
-        with:
-          token: ${{ github.token }}
