@@ -16,7 +16,7 @@ variable "subscription_id" {
 }
 
 variable "extra_read_permissions_role_name" {
-  type = string
-  default = "bridgecrew-extra-read-permissions"
+  type        = string
+  default     = "bridgecrew-extra-read-permissions"
   description = "The name of the role that provides a few extra scanning permissions. You may need to provide a new name if you have multiple subscriptions sharing the same AD backend."
 }
