@@ -19,7 +19,7 @@ resource "null_resource" "notify_bridgecrew" {
       "clientId" : azuread_application.bridgecrew_app.application_id,
 "clientSecret" : random_string.password.result } })}'
     CURL
-      }
+}
 
-      depends_on = [azurerm_role_assignment.role_assignments]
-      }
+depends_on = [azurerm_role_assignment.role_assignments]
+}

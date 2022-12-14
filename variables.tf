@@ -24,4 +24,5 @@ variable "extra_read_permissions_role_name" {
 variable "bc_api_url" {
   type    = string
   default = "https://www.bridgecrew.cloud"
+  description = "The API URL of Bridgecrew, supply a non-default value only when deploying it to a development/non-prod environment"
 }
