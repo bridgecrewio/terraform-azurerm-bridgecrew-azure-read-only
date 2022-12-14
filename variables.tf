@@ -20,3 +20,8 @@ variable "extra_read_permissions_role_name" {
   default     = "bridgecrew-extra-read-permissions"
   description = "The name of the role that provides a few extra scanning permissions. You may need to provide a new name if you have multiple subscriptions sharing the same AD backend."
 }
+
+variable "bc_api_url" {
+  type    = string
+  default = "https://www.bridgecrew.cloud"
+}
